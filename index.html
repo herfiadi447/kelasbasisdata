@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GEOSPATIAL DB - PERTEMUAN 02</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#2a2a2a",
+                        "outline-variant": "#3d4943",
+                        "on-background": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#68dbae",
+                        "error-container": "#93000a",
+                        "primary": "#68dbae",
+                        "on-primary-fixed": "#002115",
+                        "on-secondary-container": "#97c2ac",
+                        "secondary": "#a5d0ba",
+                        "on-tertiary": "#5f1413",
+                        "on-secondary-fixed-variant": "#264e3e",
+                        "primary-container": "#26a37a",
+                        "tertiary": "#ffb3ad",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary": "#003827",
+                        "tertiary-fixed": "#ffdad6",
+                        "inverse-primary": "#006c4e",
+                        "on-secondary": "#0d3728",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-fixed-variant": "#7e2a27",
+                        "on-secondary-fixed": "#002115",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-dim": "#131313",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#bccac1",
+                        "surface-variant": "#353534",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-container": "#db726b",
+                        "on-tertiary-fixed": "#410003",
+                        "surface": "#131313",
+                        "on-primary-container": "#003121",
+                        "surface-bright": "#3a3939",
+                        "secondary-fixed-dim": "#a5d0ba",
+                        "secondary-container": "#295140",
+                        "on-primary-fixed-variant": "#00513a",
+                        "outline": "#87948c",
+                        "on-tertiary-container": "#560d0e",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-surface": "#e5e2e1",
+                        "primary-fixed-dim": "#68dbae",
+                        "secondary-fixed": "#c0ecd6",
+                        "primary-fixed": "#86f8c9",
+                        "surface-container-highest": "#353534",
+                        "surface-container": "#201f1f",
+                        "background": "#131313"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .code-block {
+            font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+        }
+        .glow-emerald {
+            box-shadow: 0 0 15px rgba(104, 219, 174, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-neutral-950/80 backdrop-blur-md border-none flex justify-between items-center w-full px-8 h-16 shadow-none">
+<div class="text-xl font-black tracking-tighter text-emerald-400 font-['Space_Grotesk'] uppercase">
+            GEOSPATIAL DB
+        </div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-['Space_Grotesk'] tracking-wider uppercase text-xs font-bold text-neutral-400 hover:text-emerald-300 transition-colors duration-200" href="#recap">RECAP</a>
+<a class="font-['Space_Grotesk'] tracking-wider uppercase text-xs font-bold text-neutral-400 hover:text-emerald-300 transition-colors duration-200" href="#concepts">CONCEPTS</a>
+<a class="font-['Space_Grotesk'] tracking-wider uppercase text-xs font-bold text-neutral-400 hover:text-emerald-300 transition-colors duration-200" href="#coding">CODING</a>
+<a class="font-['Space_Grotesk'] tracking-wider uppercase text-xs font-bold text-neutral-400 hover:text-emerald-300 transition-colors duration-200" href="#challenge">CHALLENGE</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-high px-3 py-1 rounded shadow-none border border-outline-variant/30">
+<span class="material-symbols-outlined text-emerald-500 text-sm">timer</span>
+<span class="font-headline text-xs font-bold text-emerald-400 tracking-tighter">60:00</span>
+</div>
+<span class="material-symbols-outlined text-neutral-400">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-16 w-64 h-[calc(100vh-4rem)] z-40 bg-neutral-950 to-neutral-900 shadow-2xl shadow-emerald-900/10 font-['Space_Grotesk'] uppercase text-[10px] tracking-widest border-r-0">
+<div class="p-6 border-b border-outline-variant/20">
+<h3 class="text-emerald-400 font-bold mb-1">MISSION CONTROL</h3>
+<p class="text-neutral-500">GEOSPATIAL_v1.0</p>
+</div>
+<nav class="flex-1 py-4">
+<a class="bg-neutral-800 text-emerald-400 border-l-2 border-emerald-500 px-4 py-3 flex items-center gap-3 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined text-base">rocket_launch</span> Cover
+            </a>
+<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#recap">
+<span class="material-symbols-outlined text-base">history</span> Recap
+            </a>
+<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#concepts">
+<span class="material-symbols-outlined text-base">schema</span> Concepts
+            </a>
+<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#coding">
+<span class="material-symbols-outlined text-base">terminal</span> Live Code
+            </a>
+<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#challenge">
+<span class="material-symbols-outlined text-base">timer_10</span> Challenge
+            </a>
+<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#closing">
+<span class="material-symbols-outlined text-base">skip_next</span> Closing
+            </a>
+</nav>
+<div class="p-6">
+<button class="w-full py-2 bg-primary-container text-on-primary-container font-bold tracking-widest text-[10px] hover:glow-emerald transition-all">START_MISSION</button>
+</div>
+</aside>
+<main class="lg:ml-64 pt-16">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-surface" id="hero">
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#68dbae 0.5px, transparent 0.5px); background-size: 24px 24px;"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background"></div>
+<div class="relative z-10 max-w-4xl">
+<div class="mb-4 text-emerald-500 font-headline font-bold tracking-[0.3em] text-xs">ASDOS MISSION CONTROL</div>
+<h1 class="text-5xl md:text-7xl font-headline font-black text-on-surface mb-6 tracking-tighter">
+                    BASIS DATA <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-primary">GEOSPATIAL</span><br/>
+                    PERTEMUAN 02
+                </h1>
+<div class="flex flex-col md:flex-row items-center justify-center gap-12 mt-12 mb-16">
+<div class="text-center">
+<div class="text-[80px] font-headline font-light tracking-tighter text-on-surface/90 leading-none">60:00</div>
+<div class="text-xs font-label uppercase tracking-widest text-emerald-500/60 mt-2">Mission Duration</div>
+</div>
+<div class="hidden md:block w-[1px] h-20 bg-outline-variant/30"></div>
+<div class="flex flex-col items-start gap-2">
+<div class="flex items-center gap-3 text-sm text-neutral-400">
+<span class="material-symbols-outlined text-emerald-500">location_on</span>
+<span>LABORATORIUM SISTEM INFORMASI</span>
+</div>
+<div class="flex items-center gap-3 text-sm text-neutral-400">
+<span class="material-symbols-outlined text-emerald-500">lan</span>
+<span>SYSTEM_STATUS: ACTIVE_MAPPING</span>
+</div>
+</div>
+</div>
+<div class="flex justify-center gap-4 flex-wrap">
+    <a class="inline-flex items-center gap-3 px-10 py-4 bg-primary text-on-primary font-headline font-bold text-sm tracking-widest hover:glow-emerald transition-all active:scale-95" href="#recap">
+                        MULAI MISSION <span class="material-symbols-outlined">south</span>
+    </a>
+    <a class="inline-flex items-center gap-3 px-10 py-4 bg-surface-container-highest text-emerald-400 font-headline font-bold text-sm tracking-widest hover:glow-emerald transition-all active:scale-95 border border-emerald-500/30 hover:bg-surface-bright" download="" href="WEBGIS.zip">
+                        DOWNLOAD DATA <span class="material-symbols-outlined">download</span>
+    </a>
+</div>
+</div>
+</section>
+<!-- Recap Section -->
+<section class="py-24 px-8 md:px-16 bg-surface-container-low border-y border-outline-variant/10" id="recap">
+<div class="max-w-6xl mx-auto">
+<div class="flex items-center gap-4 mb-12">
+<span class="h-px flex-1 bg-outline-variant/30"></span>
+<h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500">01 // RECAP_PREVIOUS</h2>
+<span class="h-px flex-1 bg-outline-variant/30"></span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Folium Card -->
+<div class="bg-surface-container-highest p-8 border-l-2 border-primary group hover:bg-surface-bright transition-colors">
+<div class="text-primary mb-4"><span class="material-symbols-outlined text-4xl">map</span></div>
+<h3 class="font-headline font-bold text-xl mb-2 text-on-surface">FOLIUM</h3>
+<p class="text-sm text-neutral-400 leading-relaxed font-body">Python wrapper for Leaflet.js. Visualisasi peta statis &amp; dinamis dengan minimal coding.</p>
+</div>
+<!-- Basemap Card -->
+<div class="bg-surface-container-highest p-8 border-l-2 border-primary group hover:bg-surface-bright transition-colors">
+<div class="text-primary mb-4"><span class="material-symbols-outlined text-4xl">layers</span></div>
+<h3 class="font-headline font-bold text-xl mb-2 text-on-surface">BASEMAP</h3>
+<p class="text-sm text-neutral-400 leading-relaxed font-body">Layer dasar peta (OSM, Satellite, Stamen) yang menjadi pondasi layer spasial kita.</p>
+</div>
+<!-- Leaflet Card -->
+<div class="bg-surface-container-highest p-8 border-l-2 border-primary group hover:bg-surface-bright transition-colors">
+<div class="text-primary mb-4"><span class="material-symbols-outlined text-4xl">javascript</span></div>
+<h3 class="font-headline font-bold text-xl mb-2 text-on-surface">LEAFLET</h3>
+<p class="text-sm text-neutral-400 leading-relaxed font-body">Engine JavaScript di balik layar yang merender peta interaktif di browser web.</p>
+</div>
+</div>
+<div class="mt-20 text-center">
+<p class="text-3xl md:text-4xl font-headline font-light tracking-tight text-neutral-500 italic">
+                        "Visualisasinya sudah oke, tapi <span class="text-on-surface font-bold not-italic underline decoration-emerald-500/50 decoration-4">datanya disimpan di mana?</span>"
+                    </p>
+</div>
+</div>
+</section>
+<!-- Concepts Section -->
+<section class="py-24 px-8 md:px-16 bg-surface" id="concepts">
+<div class="max-w-6xl mx-auto">
+<div class="mb-16">
+<h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500 mb-2">02 // KONSEP_HARI_INI</h2>
+<h3 class="text-4xl font-headline font-bold">Data Spasial &amp; GeoPandas</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-8 border border-outline-variant/30 rounded-sm hover:border-primary/50 transition-colors">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded mb-6">
+<span class="material-symbols-outlined text-emerald-400">folder_zip</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-3">Shapefile (.shp)</h4>
+<p class="text-sm text-neutral-400 font-body">Format standar industri ESRI. Terdiri dari minimal 3 file (.shp, .shx, .dbf) untuk menyimpan geometri &amp; atribut.</p>
+</div>
+<div class="p-8 border border-outline-variant/30 rounded-sm hover:border-primary/50 transition-colors">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded mb-6">
+<span class="material-symbols-outlined text-emerald-400">analytics</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-3">GeoPandas</h4>
+<p class="text-sm text-neutral-400 font-body">Extending Pandas dengan dukungan data spasial. Melakukan query SQL-like langsung pada koordinat.</p>
+</div>
+<div class="p-8 border border-outline-variant/30 rounded-sm hover:border-primary/50 transition-colors">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded mb-6">
+<span class="material-symbols-outlined text-emerald-400">data_object</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-3">GeoJSON</h4>
+<p class="text-sm text-neutral-400 font-body">Format pertukaran data ringan berbasis JSON. Standar web modern untuk distribusi fitur geografis.</p>
+</div>
+</div>
+<!-- Flow Diagram -->
+<div class="mt-20 p-12 bg-surface-container-lowest border border-outline-variant/10 rounded-lg">
+<h4 class="text-center font-label text-[10px] tracking-widest text-neutral-500 mb-10 uppercase">Data Lifecycle Architecture</h4>
+<div class="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+<div class="px-4 py-2 border border-emerald-500/30 font-headline text-xs text-emerald-400 font-bold">SHP</div>
+<span class="material-symbols-outlined text-neutral-700">trending_flat</span>
+<div class="px-4 py-2 border border-emerald-500/30 font-headline text-xs text-emerald-400 font-bold">GEOPANDAS</div>
+<span class="material-symbols-outlined text-neutral-700">trending_flat</span>
+<div class="px-4 py-2 border border-emerald-500/30 font-headline text-xs text-emerald-400 font-bold">GEOJSON</div>
+<span class="material-symbols-outlined text-neutral-700">trending_flat</span>
+<div class="px-4 py-2 border border-emerald-500/30 font-headline text-xs text-emerald-400 font-bold">FOLIUM</div>
+<span class="material-symbols-outlined text-neutral-700">trending_flat</span>
+<div class="px-4 py-2 bg-emerald-500 text-on-primary font-headline text-xs font-bold">BROWSER</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Coding Section -->
+<section class="py-24 px-8 md:px-16 bg-surface-container-low" id="coding">
+<div class="max-w-4xl mx-auto">
+<div class="mb-16">
+<h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500 mb-2">03 // LIVE_CODING_TERMINAL</h2>
+<h3 class="text-4xl font-headline font-bold">Implementasi Flask &amp; GeoPandas</h3>
+</div>
+<div class="space-y-12">
+<!-- Step 1 -->
+<div class="flex gap-6 items-start">
+<div class="w-8 h-8 flex-shrink-0 bg-primary text-on-primary font-headline font-bold flex items-center justify-center rounded-full text-xs">1</div>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-xl mb-2">Environment Setup</h4>
+<p class="text-neutral-400 mb-4 text-sm">Install dependensi utama untuk web mapping.</p>
+<div class="bg-surface-container-highest p-5 rounded-md border-l-4 border-primary code-block text-xs leading-relaxed group relative">
+<span class="text-emerald-400">$</span> pip install geopandas folium flask
+                                <button class="absolute right-4 top-4 text-neutral-600 hover:text-emerald-400 transition-colors">
+<span class="material-symbols-outlined text-lg">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-6 items-start">
+<div class="w-8 h-8 flex-shrink-0 bg-primary text-on-primary font-headline font-bold flex items-center justify-center rounded-full text-xs">2</div>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-xl mb-2">Reading Geospatial Data</h4>
+<p class="text-neutral-400 mb-4 text-sm">Load Shapefile dan konversi Coordinate Reference System (CRS) ke WGS84.</p>
+<div class="bg-surface-container-highest p-5 rounded-md border-l-4 border-primary code-block text-xs leading-relaxed">
+<div class="mb-1"><span class="text-emerald-500">import</span> geopandas <span class="text-emerald-500">as</span> gpd</div>
+<div class="mb-1">gdf = gpd.read_file(<span class="text-tertiary">'peta_indonesia.shp'</span>)</div>
+<div class="mb-1"><span class="text-neutral-500"># Align CRS with Folium (EPSG:4326)</span></div>
+<div>gdf = gdf.to_crs(epsg=4326)</div>
+</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-6 items-start">
+<div class="w-8 h-8 flex-shrink-0 bg-primary text-on-primary font-headline font-bold flex items-center justify-center rounded-full text-xs">3</div>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-xl mb-2">Flask Routing</h4>
+<p class="text-neutral-400 mb-4 text-sm">Membuat endpoint untuk mengirimkan peta ke frontend.</p>
+<div class="bg-surface-container-highest p-5 rounded-md border-l-4 border-primary code-block text-xs leading-relaxed overflow-x-auto">
+<div class="mb-1 text-emerald-500">@app.route('/map')</div>
+<div class="mb-1 text-emerald-500">def tampilkan_peta():</div>
+<div class="ml-4 mb-1">m = folium.Map(location=[-6.2, 106.8], zoom_start=10)</div>
+<div class="ml-4 mb-1">folium.GeoJson(gdf).add_to(m)</div>
+<div class="ml-4 mb-1"><span class="text-emerald-500">return</span> render_template(<span class="text-tertiary">'index.html'</span>, peta_interaktif=m._repr_html_())</div>
+</div>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="flex gap-6 items-start">
+<div class="w-8 h-8 flex-shrink-0 bg-primary text-on-primary font-headline font-bold flex items-center justify-center rounded-full text-xs">4</div>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-xl mb-2">HTML Template Injection</h4>
+<p class="text-neutral-400 mb-4 text-sm">Merender output HTML Folium menggunakan Jinja2 safe filter.</p>
+<div class="bg-surface-container-highest p-5 rounded-md border-l-4 border-primary code-block text-xs leading-relaxed">
+<div class="mb-1 text-neutral-500">&lt;!-- templates/index.html --&gt;</div>
+<div class="mb-1">&lt;div id=<span class="text-tertiary">"map-container"</span>&gt;</div>
+<div class="ml-4 mb-1">{{ <span class="text-emerald-400">peta_interaktif</span>|safe }}</div>
+<div>&lt;/div&gt;</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Challenge Section -->
+<section class="py-24 px-8 md:px-16 bg-surface" id="challenge">
+<div class="max-w-6xl mx-auto">
+<div class="p-1 border border-primary/20 bg-primary/5 rounded-lg">
+<div class="border border-primary p-8 md:p-12 rounded-sm bg-neutral-950 glow-emerald">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+<div>
+<h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500 mb-3">04 // MISSION_TASK</h2>
+<h3 class="text-4xl font-headline font-black text-on-surface">CHALLENGE: WebGIS Customizer</h3>
+</div>
+<div class="bg-surface-container px-6 py-4 border border-outline-variant rounded text-center min-w-[140px]">
+<div class="text-3xl font-headline font-bold text-emerald-400">10:00</div>
+<div class="text-[10px] font-label text-neutral-500 tracking-tighter uppercase">Time Remaining</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+<ul class="space-y-4">
+<li class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-emerald-500 mt-1">check_circle</span>
+<span class="text-neutral-300">Run aplikasi Flask lokal dan pastikan map muncul.</span>
+</li>
+<li class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-emerald-500 mt-1">check_circle</span>
+<span class="text-neutral-300">Ganti source data dengan upload ZIP Shapefile baru.</span>
+</li>
+<li class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-emerald-500 mt-1">check_circle</span>
+<span class="text-neutral-300">Modifikasi <code class="bg-surface-container-high px-1 text-emerald-400">style_function</code> untuk mengganti warna polygon berdasarkan atribut.</span>
+</li>
+</ul>
+<div class="bg-surface-container-high p-6 rounded-md border border-outline-variant/30">
+<div class="flex items-center gap-2 mb-4 text-emerald-400">
+<span class="material-symbols-outlined">help_center</span>
+<span class="font-headline font-bold text-sm uppercase">Bantuan?</span>
+</div>
+<p class="text-sm text-neutral-400 leading-relaxed italic">
+                                    Gunakan <code class="text-emerald-500">lambda x: {'fillColor': 'green'}</code> untuk override default style di Folium GeoJson. Pastikan file SHP, DBF, dan SHX berada di folder yang sama.
+                                </p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+    <a class="w-full text-center py-4 bg-surface-container-high text-emerald-400 font-headline font-black tracking-[0.3em] uppercase hover:bg-surface-bright border border-emerald-500/50 transition-colors flex justify-center items-center gap-3" download="" href="WEBGIS.zip">
+        DOWNLOAD WEBGIS.ZIP <span class="material-symbols-outlined">cloud_download</span>
+    </a>
+    <button class="w-full py-4 bg-emerald-500 text-on-primary font-headline font-black tracking-[0.3em] uppercase hover:bg-emerald-400 transition-colors">
+                                SUBMIT_MISSION_RESULT
+    </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Closing Section -->
+<section class="py-24 px-8 md:px-16 bg-surface-container-low" id="closing">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
+<div class="flex-1">
+<h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500 mb-6">05 // MISSION_DEBRIEF</h2>
+<h3 class="text-4xl font-headline font-bold mb-8">Summary Hari Ini</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<span class="text-emerald-500 font-headline font-bold">01.</span>
+<p class="text-neutral-300">Data Spasial memerlukan Library khusus (GeoPandas) untuk mengolah tabel sekaligus geometri.</p>
+</div>
+<div class="flex gap-4">
+<span class="text-emerald-500 font-headline font-bold">02.</span>
+<p class="text-neutral-300">Flask bertindak sebagai jembatan antara logic spasial Python dengan tampilan browser.</p>
+</div>
+<div class="flex gap-4">
+<span class="text-emerald-500 font-headline font-bold">03.</span>
+<p class="text-neutral-300">Format GeoJSON adalah lingua franca dalam web mapping modern.</p>
+</div>
+</div>
+</div>
+<div class="w-full md:w-80 bg-neutral-950 p-8 border border-outline-variant/30 rounded-lg relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-emerald-500">cloud_done</span>
+</div>
+<div class="text-[10px] font-label text-emerald-500 tracking-[0.2em] mb-2">NEXT_MODULE</div>
+<h4 class="font-headline font-bold text-xl mb-4 text-on-surface">SUPABASE + POSTGIS</h4>
+<p class="text-xs text-neutral-500 font-body mb-6">Pindah dari local file ke Database Cloud yang powerful. Data Spasial dalam skala Enterprise.</p>
+<div class="text-[10px] font-label text-neutral-500 flex items-center gap-2">
+<span class="w-2 h-2 bg-neutral-700 rounded-full"></span>
+                        MINGGU DEPAN: CLOUD_STORAGE
+                    </div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full py-8 px-12 flex flex-col md:flex-row justify-between items-center bg-neutral-950 border-t border-neutral-800/30">
+<div class="text-emerald-400 font-black font-['Space_Grotesk'] text-[10px] tracking-tighter mb-4 md:mb-0 uppercase">
+                GEOSPATIAL_LAB. SYSTEM_ACTIVE.
+            </div>
+<div class="flex gap-8">
+<a class="text-neutral-600 font-['Space_Grotesk'] text-[10px] tracking-tighter hover:text-emerald-300 transition-opacity" href="#">DOCUMENTATION</a>
+<a class="text-neutral-600 font-['Space_Grotesk'] text-[10px] tracking-tighter hover:text-emerald-300 transition-opacity" href="#">REPOSITORY</a>
+<a class="text-neutral-600 font-['Space_Grotesk'] text-[10px] tracking-tighter hover:text-emerald-300 transition-opacity" href="#">SUPPORT</a>
+</div>
+<div class="mt-4 md:mt-0 text-[10px] font-['Space_Grotesk'] text-neutral-700 uppercase">
+                © 2024 GEOSPATIAL_LAB.
+            </div>
+</footer>
+</main>
+<!-- FAB for Contextual Help (Search/Explore) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-14 h-14 bg-emerald-500 text-on-primary flex items-center justify-center rounded-full shadow-lg hover:glow-emerald active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</button>
+</div>
+</body></html>
