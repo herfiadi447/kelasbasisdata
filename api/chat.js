@@ -10,14 +10,18 @@ module.exports = async function(req, res) {
     }
 
     try {
-        // Forward the exact request to Groq API
+        let safeBody = req.body;
+        if (typeof safeBody !== 'string') {
+            safeBody = JSON.stringify(safeBody);
+        }
+
         const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`
             },
-            body: JSON.stringify(req.body)
+            body: safeBody
         });
 
         if (!response.ok) {
