@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ADMIN DASHBOARD - GEOSPATIAL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "surface-container-high": "#2a2a2a",
+                    "outline-variant": "#3d4943",
+                    "on-background": "#e5e2e1",
+                    "surface-tint": "#68dbae",
+                    "primary": "#68dbae",
+                    "on-primary-fixed": "#002115",
+                    "surface": "#131313",
+                    "on-primary": "#003827",
+                    "background": "#131313",
+                    "on-surface": "#e5e2e1",
+                    "surface-bright": "#3a3939"
+                },
+                fontFamily: {
+                    headline: ['"Space Grotesk"', "sans-serif"],
+                    body: ['"Inter"', "sans-serif"],
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body class="bg-[#131313] text-[#e5e2e1] font-body min-h-screen flex items-center justify-center p-4">
+
+<!-- Login Section -->
+<div id="login-section" class="w-full max-w-sm bg-[#2a2a2a] border border-[#3d4943]/30 rounded-xl p-8 shadow-2xl">
+    <div class="text-center mb-8">
+        <span class="material-symbols-outlined text-5xl text-emerald-500 mb-2 drop-shadow-lg">admin_panel_settings</span>
+        <h2 class="font-headline font-bold text-xl tracking-widest text-emerald-400">ADMINISTRATOR</h2>
+        <p class="text-xs text-neutral-400 mt-2">Geospatial Submission Control</p>
+    </div>
+    <form id="login-form" onsubmit="handleLogin(event)" class="flex flex-col gap-5">
+        <div>
+            <label class="block text-xs text-neutral-400 mb-1 tracking-widest uppercase">Username</label>
+            <input type="text" id="login-username" required class="w-full bg-[#131313] border border-[#3d4943]/50 rounded px-3 py-2 text-[#e5e2e1] focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+        </div>
+        <div>
+            <label class="block text-xs text-neutral-400 mb-1 tracking-widest uppercase">Password</label>
+            <input type="password" id="login-password" required class="w-full bg-[#131313] border border-[#3d4943]/50 rounded px-3 py-2 text-[#e5e2e1] focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+        </div>
+        <div id="login-error" class="hidden text-xs text-red-400 bg-red-500/10 p-2 rounded border border-red-500/20 text-center font-bold"></div>
+        <button type="submit" id="login-btn" class="w-full mt-2 py-3 bg-emerald-500 text-[#003827] font-bold font-headline tracking-widest rounded hover:bg-emerald-400 transition-colors">LOGIN</button>
+    </form>
+</div>
+
+<!-- Dashboard Section -->
+<div id="dashboard-section" class="hidden w-full max-w-5xl h-[85vh] bg-[#2a2a2a] border border-[#3d4943]/30 rounded-xl shadow-2xl flex flex-col overflow-hidden">
+    <!-- Header -->
+    <div class="bg-[#131313] px-8 py-5 border-b border-[#3d4943]/30 flex justify-between items-center shrink-0">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-emerald-500 text-3xl">database</span>
+            <div>
+                <h1 class="font-headline font-bold text-lg text-emerald-400 tracking-widest uppercase">Mission Results</h1>
+                <p class="text-xs text-neutral-500">Daftar Laporan Mahasiswa</p>
+            </div>
+        </div>
+        <button onclick="handleLogout()" class="flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-[#3d4943]/50 text-neutral-300 hover:text-emerald-400 hover:border-emerald-500/50 rounded transition-all text-sm font-bold tracking-wider">
+            <span class="material-symbols-outlined text-sm">logout</span> LOGOUT
+        </button>
+    </div>
+
+    <!-- Table -->
+    <div class="flex-1 overflow-auto p-4 md:p-8 bg-[#181818]">
+        <div class="w-full bg-[#131313] rounded-lg border border-[#3d4943]/30 overflow-hidden shadow-xl">
+            <table class="w-full text-left text-sm text-neutral-300 border-collapse">
+                <thead class="text-xs text-emerald-500 uppercase bg-[#2a2a2a]/50 border-b border-[#3d4943]/30 font-headline tracking-widest">
+                    <tr>
+                        <th class="px-6 py-4 w-16">#</th>
+                        <th class="px-6 py-4">Waktu (WITA)</th>
+                        <th class="px-6 py-4">NIM</th>
+                        <th class="px-6 py-4">Nama Lengkap</th>
+                        <th class="px-6 py-4 text-right">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Data populated via JS -->
+                    <tr><td colspan="5" class="text-center py-8 text-neutral-500"><span class="material-symbols-outlined animate-spin text-2xl">refresh</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    const loginSection = document.getElementById('login-section');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const tableBody = document.getElementById('table-body');
+    const loginError = document.getElementById('login-error');
+    const loginBtn = document.getElementById('login-btn');
+
+    // Auto check login
+    if (localStorage.getItem('admin_token')) {
+        showDashboard();
+    }
+
+    async function handleLogin(e) {
+        e.preventDefault();
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'VERIFYING...';
+        loginError.classList.add('hidden');
+
+        try {
+            const resp = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await resp.json();
+            
+            if (resp.ok && data.success) {
+                localStorage.setItem('admin_token', data.token);
+                showDashboard();
+            } else {
+                throw new Error(data.error || 'Login Gagal');
+            }
+        } catch(err) {
+            loginError.textContent = err.message;
+            loginError.classList.remove('hidden');
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'LOGIN';
+        }
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('admin_token');
+        dashboardSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+        document.getElementById('login-form').reset();
+    }
+
+    async function showDashboard() {
+        loginSection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
+        await fetchSubmissions();
+    }
+
+    async function fetchSubmissions() {
+        const token = localStorage.getItem('admin_token');
+        if (!token) return handleLogout();
+
+        try {
+            const resp = await fetch('/api/admin', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            if (resp.status === 401) {
+                return handleLogout(); // token expired / invalid
+            }
+
+            const data = await resp.json();
+            if (resp.ok && data.success) {
+                renderTable(data.data);
+            } else {
+                 throw new Error(data.error);
+            }
+        } catch (err) {
+            console.error("Gagal menarik data", err);
+            tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-red-400">Gagal menarik data dari server (${err.message})</td></tr>`;
+        }
+    }
+
+    function renderTable(data) {
+        if (!data || data.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-neutral-500 font-bold tracking-widest"><span class="material-symbols-outlined text-4xl block mb-2 opacity-50">inbox</span>BELUM ADA SUBMISSION</td></tr>`;
+            return;
+        }
+
+        tableBody.innerHTML = data.map((item, index) => {
+            const date = new Date(item.created_at).toLocaleString('id-ID', { timeZone: 'Asia/Makassar' }); // WITA target
+            return \`
+                <tr class="border-b border-[#3d4943]/20 hover:bg-[#2a2a2a]/50 transition-colors">
+                    <td class="px-6 py-4 text-emerald-500/50 font-bold">\${index + 1}</td>
+                    <td class="px-6 py-4 font-mono text-xs text-neutral-400">\${date}</td>
+                    <td class="px-6 py-4 font-headline tracking-widest text-emerald-300 font-bold">\${item.nim}</td>
+                    <td class="px-6 py-4 text-neutral-200">\${item.nama}</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="\${item.file_url}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded hover:bg-emerald-500 hover:text-[#003827] transition-all text-xs font-bold tracking-widest">
+                            <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span> PDF
+                        </a>
+                    </td>
+                </tr>
+            \`;
+        }).join('');
+    }
+</script>
+</body></html>
