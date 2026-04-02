@@ -110,23 +110,23 @@
 <h3 class="text-emerald-400 font-bold mb-1">MISSION CONTROL</h3>
 <p class="text-neutral-500">GEOSPATIAL_v1.0</p>
 </div>
-<nav class="flex-1 py-4">
-<a class="bg-neutral-800 text-emerald-400 border-l-2 border-emerald-500 px-4 py-3 flex items-center gap-3 transition-all duration-300 ease-in-out" href="#">
+<nav class="flex-1 py-4" id="sidebar-nav">
+<a class="sidebar-link bg-neutral-800 text-emerald-400 border-l-2 border-emerald-500 px-4 py-3 flex items-center gap-3 transition-all duration-300 ease-in-out" href="#hero">
 <span class="material-symbols-outlined text-base">rocket_launch</span> Cover
             </a>
-<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#recap">
+<a class="sidebar-link text-neutral-500 border-l-2 border-transparent px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#recap">
 <span class="material-symbols-outlined text-base">history</span> Recap
             </a>
-<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#concepts">
+<a class="sidebar-link text-neutral-500 border-l-2 border-transparent px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#concepts">
 <span class="material-symbols-outlined text-base">schema</span> Concepts
             </a>
-<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#coding">
+<a class="sidebar-link text-neutral-500 border-l-2 border-transparent px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#coding">
 <span class="material-symbols-outlined text-base">terminal</span> Live Code
             </a>
-<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#challenge">
+<a class="sidebar-link text-neutral-500 border-l-2 border-transparent px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#challenge">
 <span class="material-symbols-outlined text-base">timer_10</span> Challenge
             </a>
-<a class="text-neutral-500 px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#closing">
+<a class="sidebar-link text-neutral-500 border-l-2 border-transparent px-4 py-3 flex items-center gap-3 hover:bg-neutral-800/50 hover:text-emerald-200 transition-all duration-300 ease-in-out" href="#closing">
 <span class="material-symbols-outlined text-base">skip_next</span> Closing
             </a>
 </nav>
@@ -720,5 +720,31 @@
             chatInput.focus();
         }
     }
+</script>
+<script>
+    // ScrollSpy Logic for Sidebar
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".sidebar-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "hero"; // fallback to hero 
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((a) => {
+                a.classList.remove("bg-neutral-800", "text-emerald-400", "border-emerald-500");
+                a.classList.add("text-neutral-500", "border-transparent");
+                if (a.getAttribute("href") === `#${current}`) {
+                    a.classList.remove("text-neutral-500", "border-transparent");
+                    a.classList.add("bg-neutral-800", "text-emerald-400", "border-emerald-500");
+                }
+            });
+        });
+    });
 </script>
 </body></html>
