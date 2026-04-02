@@ -656,7 +656,7 @@
             if (typeof marked !== 'undefined') {
                 bubble.innerHTML = marked.parse(text);
             } else {
-                bubble.innerHTML = text.replace(/\ng, '<br>');
+                bubble.innerHTML = text.replace(/\n/g, '<br>');
             }
         }
         
