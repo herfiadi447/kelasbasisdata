@@ -185,19 +185,19 @@
 
         tableBody.innerHTML = data.map((item, index) => {
             const date = new Date(item.created_at).toLocaleString('id-ID', { timeZone: 'Asia/Makassar' }); // WITA target
-            return \`
+            return `
                 <tr class="border-b border-[#3d4943]/20 hover:bg-[#2a2a2a]/50 transition-colors">
-                    <td class="px-6 py-4 text-emerald-500/50 font-bold">\${index + 1}</td>
-                    <td class="px-6 py-4 font-mono text-xs text-neutral-400">\${date}</td>
-                    <td class="px-6 py-4 font-headline tracking-widest text-emerald-300 font-bold">\${item.nim}</td>
-                    <td class="px-6 py-4 text-neutral-200">\${item.nama}</td>
+                    <td class="px-6 py-4 text-emerald-500/50 font-bold">${index + 1}</td>
+                    <td class="px-6 py-4 font-mono text-xs text-neutral-400">${date}</td>
+                    <td class="px-6 py-4 font-headline tracking-widest text-emerald-300 font-bold">${item.nim}</td>
+                    <td class="px-6 py-4 text-neutral-200">${item.nama}</td>
                     <td class="px-6 py-4 text-right">
-                        <a href="\${item.file_url}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded hover:bg-emerald-500 hover:text-[#003827] transition-all text-xs font-bold tracking-widest">
+                        <a href="${item.file_url}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded hover:bg-emerald-500 hover:text-[#003827] transition-all text-xs font-bold tracking-widest">
                             <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span> PDF
                         </a>
                     </td>
                 </tr>
-            \`;
+            `;
         }).join('');
     }
 </script>
