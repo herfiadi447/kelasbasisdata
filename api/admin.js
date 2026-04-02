@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   }
 
   const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres.bfedjfeflccgvpssnieo:y8H9exk7%24P4VYm%26@aws-1-ap-south-1.pooler.supabase.com:5432/postgres',
+    connectionString: process.env.DATABASE_URL,
     ssl: { rejectUnauthorized: false }
   });
 
