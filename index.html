@@ -379,37 +379,71 @@
 </section>
 <!-- Closing Section -->
 <section class="py-24 px-8 md:px-16 bg-surface-container-low" id="closing">
-<div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-center">
-<div class="flex-1">
-<h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500 mb-6">05 // MISSION_DEBRIEF</h2>
-<h3 class="text-4xl font-headline font-bold mb-8">Summary Hari Ini</h3>
-<div class="space-y-6">
-<div class="flex gap-4">
-<span class="text-emerald-500 font-headline font-bold">01.</span>
-<p class="text-neutral-300">Data Spasial memerlukan Library khusus (GeoPandas) untuk mengolah tabel sekaligus geometri.</p>
-</div>
-<div class="flex gap-4">
-<span class="text-emerald-500 font-headline font-bold">02.</span>
-<p class="text-neutral-300">Flask bertindak sebagai jembatan antara logic spasial Python dengan tampilan browser.</p>
-</div>
-<div class="flex gap-4">
-<span class="text-emerald-500 font-headline font-bold">03.</span>
-<p class="text-neutral-300">Format GeoJSON adalah lingua franca dalam web mapping modern.</p>
-</div>
-</div>
-</div>
-<div class="w-full md:w-80 bg-neutral-950 p-8 border border-outline-variant/30 rounded-lg relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-symbols-outlined text-6xl text-emerald-500">cloud_done</span>
-</div>
-<div class="text-[10px] font-label text-emerald-500 tracking-[0.2em] mb-2">NEXT_MODULE</div>
-<h4 class="font-headline font-bold text-xl mb-4 text-on-surface">SUPABASE + POSTGIS</h4>
-<p class="text-xs text-neutral-500 font-body mb-6">Pindah dari local file ke Database Cloud yang powerful. Data Spasial dalam skala Enterprise.</p>
-<div class="text-[10px] font-label text-neutral-500 flex items-center gap-2">
-<span class="w-2 h-2 bg-neutral-700 rounded-full"></span>
-                        MINGGU DEPAN: CLOUD_STORAGE
-                    </div>
-</div>
+<div class="max-w-6xl mx-auto">
+    <h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500 mb-4">MISSION_DEBRIEF</h2>
+    <h3 class="text-4xl font-headline font-bold mb-4">Summary Semua Pertemuan</h3>
+    <p class="text-neutral-500 text-sm mb-12">Rekap singkat dari perjalanan materi yang sudah kita tempuh bersama.</p>
+
+    <!-- Summary Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <!-- P1 -->
+        <div class="bg-neutral-950 border border-outline-variant/30 rounded-xl p-6 relative overflow-hidden group hover:border-emerald-500/30 transition-colors">
+            <div class="text-[10px] font-bold tracking-[0.2em] text-emerald-600 uppercase mb-3">Pertemuan 01</div>
+            <h4 class="font-headline font-bold text-lg mb-4 text-on-surface">Basis Data Geospasial</h4>
+            <ul class="space-y-3">
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check</span> Pengenalan tipe data spasial (Titik, Garis, Poligon)</li>
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check</span> Format file peta: SHP, GeoJSON, KML</li>
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check</span> Sistem Koordinat & EPSG:4326 (WGS84)</li>
+            </ul>
+        </div>
+        <!-- P2 -->
+        <div class="bg-neutral-950 border border-emerald-500/20 rounded-xl p-6 relative overflow-hidden group hover:border-emerald-500/40 transition-colors shadow-[0_0_20px_rgba(16,185,129,0.05)]">
+            <div class="text-[10px] font-bold tracking-[0.2em] text-emerald-500 uppercase mb-3">Pertemuan 02</div>
+            <h4 class="font-headline font-bold text-lg mb-4 text-emerald-400">WebGIS dengan Flask</h4>
+            <ul class="space-y-3">
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check</span> GeoPandas membaca & memproses SHP secara lokal</li>
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check</span> Flask sebagai Web Server untuk peta interaktif</li>
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check</span> Folium merender GeoJSON menjadi peta Leaflet</li>
+            </ul>
+        </div>
+        <!-- P3 -->
+        <div class="bg-neutral-950 border border-indigo-500/20 rounded-xl p-6 relative overflow-hidden group hover:border-indigo-500/40 transition-colors">
+            <div class="text-[10px] font-bold tracking-[0.2em] text-indigo-400 uppercase mb-3">Pertemuan 03 — HARI INI</div>
+            <h4 class="font-headline font-bold text-lg mb-4 text-indigo-300">Cloud Database: Supabase</h4>
+            <ul class="space-y-3">
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-indigo-400 text-sm mt-0.5">check</span> SQLAlchemy menjembatani Python & PostgreSQL</li>
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-indigo-400 text-sm mt-0.5">check</span> <code>to_postgis()</code> menerbangkan data ke Supabase otomatis</li>
+                <li class="flex items-start gap-2 text-xs text-neutral-400"><span class="material-symbols-outlined text-indigo-400 text-sm mt-0.5">check</span> <code>read_postgis()</code> menarik data real-time dari cloud</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Next Session + Submit -->
+    <div class="flex flex-col md:flex-row gap-6 items-stretch">
+        <!-- Next Session Preview -->
+        <div class="flex-1 bg-neutral-950 p-8 border border-outline-variant/30 rounded-xl relative overflow-hidden group hover:border-emerald-500/30 transition-colors">
+            <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                <span class="material-symbols-outlined text-8xl text-emerald-500">cloud_upload</span>
+            </div>
+            <div class="text-[10px] font-label text-emerald-500 tracking-[0.2em] mb-3 flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                SNEAK_PEEK: PERTEMUAN 04
+            </div>
+            <h4 class="font-headline font-bold text-xl mb-3 text-on-surface">GeoJSON Text Store</h4>
+            <p class="text-xs text-neutral-500 font-body leading-relaxed">Kamu akan mempelajari cara menyimpan peta sebagai teks murni ke dalam kolom <code>JSONB</code> Supabase. Satu tabel menampung banyak layer peta sekaligus tanpa membuat tabel baru—murni menggunakan SQL INSERT!</p>
+        </div>
+        <!-- Submit CTA -->
+        <div class="md:w-72 bg-neutral-950 p-8 border border-emerald-500/30 rounded-xl flex flex-col justify-between gap-6 shadow-[0_0_30px_rgba(16,185,129,0.07)]">
+            <div>
+                <div class="text-[10px] font-label text-emerald-500 tracking-[0.2em] mb-3">MISSION_RESULT</div>
+                <h4 class="font-headline font-bold text-xl mb-2 text-on-surface">Sudah selesai?</h4>
+                <p class="text-xs text-neutral-500">Kumpulkan laporan praktikum kamu sebelum sesi berakhir.</p>
+            </div>
+            <button onclick="openSubmitModal()" class="w-full py-4 bg-emerald-500 text-on-primary font-headline font-black tracking-[0.2em] uppercase hover:bg-emerald-400 transition-colors rounded">
+                SUBMIT_MISSION_RESULT
+            </button>
+        </div>
+    </div>
 </div>
 </section>
 
