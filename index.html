@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
@@ -475,16 +475,31 @@
         </div>
         <div class="p-6">
             <p class="text-sm text-neutral-400 mb-5">Setiap kali browser berkomunikasi dengan server, dia menggunakan sebuah "kata perintah" bernama <strong class="text-neutral-200">HTTP Method</strong>.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="bg-neutral-900 border border-emerald-500/20 rounded-lg p-4">
-                    <div class="text-xs font-bold text-emerald-400 mb-2 font-headline tracking-wider">GET &mdash; Mengambil Data</div>
-                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Digunakan saat user membuka URL atau mengklik link. Contoh: membuka halaman peta.</p>
-                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-emerald-400">@app.route('/load', methods=['GET'])</div>
+                    <div class="text-xs font-bold text-emerald-400 mb-2 font-headline tracking-wider flex items-center gap-2"><span class="bg-emerald-500/20 px-1.5 py-0.5 rounded text-emerald-300">GET</span> Mengambil Data</div>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Digunakan saat user membuka URL atau mengklik link. Data dikirim lewat URL.</p>
+                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-emerald-400">methods=['GET']</div>
                 </div>
                 <div class="bg-neutral-900 border border-indigo-500/20 rounded-lg p-4">
-                    <div class="text-xs font-bold text-indigo-400 mb-2 font-headline tracking-wider">POST &mdash; Mengirim Data</div>
-                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Digunakan saat user mengirim file atau mengisi form. Data tersembunyi, bukan di URL.</p>
-                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-indigo-400">@app.route('/upload', methods=['POST'])</div>
+                    <div class="text-xs font-bold text-indigo-400 mb-2 font-headline tracking-wider flex items-center gap-2"><span class="bg-indigo-500/20 px-1.5 py-0.5 rounded text-indigo-300">POST</span> Mengirim Data</div>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Mengirim data baru ke server (file upload, form isian). Data tersembunyi, bukan di URL.</p>
+                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-indigo-400">methods=['POST']</div>
+                </div>
+                <div class="bg-neutral-900 border border-yellow-500/20 rounded-lg p-4">
+                    <div class="text-xs font-bold text-yellow-400 mb-2 font-headline tracking-wider flex items-center gap-2"><span class="bg-yellow-500/20 px-1.5 py-0.5 rounded text-yellow-300">PUT</span> Memperbarui Data</div>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Mengganti <strong class="text-neutral-300">seluruh</strong> data yang sudah ada. Ibarat "overwrite" total sebuah baris di tabel.</p>
+                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-yellow-400">methods=['PUT']</div>
+                </div>
+                <div class="bg-neutral-900 border border-orange-500/20 rounded-lg p-4">
+                    <div class="text-xs font-bold text-orange-400 mb-2 font-headline tracking-wider flex items-center gap-2"><span class="bg-orange-500/20 px-1.5 py-0.5 rounded text-orange-300">PATCH</span> Edit Sebagian</div>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Mirip PUT tapi hanya mengubah <strong class="text-neutral-300">sebagian kolom</strong> saja, bukan keseluruhan data.</p>
+                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-orange-400">methods=['PATCH']</div>
+                </div>
+                <div class="bg-neutral-900 border border-red-500/20 rounded-lg p-4">
+                    <div class="text-xs font-bold text-red-400 mb-2 font-headline tracking-wider flex items-center gap-2"><span class="bg-red-500/20 px-1.5 py-0.5 rounded text-red-300">DELETE</span> Hapus Data</div>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Memerintahkan server untuk <strong class="text-neutral-300">menghapus</strong> data tertentu. Harus digunakan dengan hati-hati!</p>
+                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-red-400">methods=['DELETE']</div>
                 </div>
             </div>
         </div>
