@@ -82,6 +82,29 @@
         .glow-emerald {
             box-shadow: 0 0 15px rgba(104, 219, 174, 0.2);
         }
+        /* Modal Lightbox Styles */
+        #image-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: zoom-out;
+        }
+        #image-modal.active {
+            display: flex;
+        }
+        #modal-img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
@@ -574,7 +597,14 @@
                         <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Pendekatan to_postgis() — Tipe Geometry</span>
                     </div>
                     <div class="bg-neutral-950 rounded-lg overflow-hidden border border-emerald-500/20">
-                        <img src="img_geom.png" alt="Tabel Supabase dengan kolom geometry (PostGIS)" class="w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity cursor-zoom-in" onclick="this.classList.toggle('scale-150') "/>
+                        <img src="img_geom.png" alt="Tabel Supabase dengan kolom geometry (PostGIS)" class="w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity cursor-zoom-in" onclick="openImageModal('img_geom.png', 'Tabel dengan kolom geometry — Pendekatan to_postgis()')"/>
+                    </div>
+                    <div class="bg-neutral-950 rounded border border-outline-variant/30 px-3 py-2 mt-4">
+                        <div class="text-[9px] text-emerald-500 font-bold uppercase mb-1">SQL Schema</div>
+                        <pre class="text-[10px] text-neutral-400 font-mono leading-tight">CREATE TABLE data_spasial (
+  id SERIAL PRIMARY KEY,
+  geom GEOMETRY(Geometry, 4326)
+);</pre>
                     </div>
                     <p class="text-xs text-neutral-500 leading-relaxed">Kolom <code class="text-emerald-400">geometry</code> menyimpan data dalam format binary PostGIS. Bisa langsung dibaca oleh <code>read_postgis()</code> tapi tidak bisa dibaca manusia secara langsung.</p>
                 </div>
@@ -584,7 +614,14 @@
                         <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest">Pendekatan GeoJSON Text — Tipe JSONB</span>
                     </div>
                     <div class="bg-neutral-950 rounded-lg overflow-hidden border border-indigo-500/20">
-                        <img src="img_geojson.png" alt="Tabel Supabase dengan kolom geojson (JSONB)" class="w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity cursor-zoom-in" onclick="this.classList.toggle('scale-150')"/>
+                        <img src="img_geojson.png" alt="Tabel Supabase dengan kolom geojson (JSONB)" class="w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity cursor-zoom-in" onclick="openImageModal('img_geojson.png', 'Tabel dengan kolom geojson JSONB — Pendekatan GeoJSON Text')"/>
+                    </div>
+                    <div class="bg-neutral-950 rounded border border-outline-variant/30 px-3 py-2 mt-4">
+                        <div class="text-[9px] text-indigo-400 font-bold uppercase mb-1">SQL Schema</div>
+                        <pre class="text-[10px] text-neutral-400 font-mono leading-tight">CREATE TABLE koleksi_peta (
+  id SERIAL PRIMARY KEY,
+  geojson JSONB
+);</pre>
                     </div>
                     <p class="text-xs text-neutral-500 leading-relaxed">Kolom <code class="text-indigo-400">geojson</code> bertipe JSONB menyimpan teks GeoJSON yang bisa dibaca manusia. Satu tabel bisa menampung banyak layer peta sekaligus — inilah target Challenge P3!</p>
                 </div>
@@ -1168,7 +1205,39 @@ Dosen/Asdos: Herfiadi
             chatInput.focus();
         }
     }
+
+    // Lightbox Functionality
+    function openImageModal(src, title) {
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalTitle = document.getElementById('modal-title');
+        modalImg.src = src;
+        modalTitle.textContent = title;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+        const modal = document.getElementById('image-modal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
 </script>
+
+<!-- Lightbox Modal -->
+<div id="image-modal" onclick="closeImageModal()" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4 cursor-zoom-out">
+    <div class="relative flex flex-col items-center gap-4 max-w-5xl w-full" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center w-full px-2">
+            <h4 id="modal-title" class="font-headline font-bold text-white text-lg tracking-wide"></h4>
+            <button onclick="closeImageModal()" class="text-neutral-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-3xl">close</span>
+            </button>
+        </div>
+        <img id="modal-img" src="" alt="Modal Image" class="max-h-[85vh] max-w-full object-contain shadow-2xl border border-white/10" />
+        <p class="text-neutral-500 text-xs italic">Klik di luar gambar untuk menutup</p>
+    </div>
+</div>
+
 <script>
     // ScrollSpy Logic for Sidebar
     document.addEventListener("DOMContentLoaded", () => {
