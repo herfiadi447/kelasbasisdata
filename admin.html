@@ -85,6 +85,7 @@
                     <tr>
                         <th class="px-6 py-4 w-16">#</th>
                         <th class="px-6 py-4">Waktu (WITA)</th>
+                        <th class="px-6 py-4">Pertemuan</th>
                         <th class="px-6 py-4">NIM</th>
                         <th class="px-6 py-4">Nama Lengkap</th>
                         <th class="px-6 py-4 text-right">Aksi</th>
@@ -92,7 +93,7 @@
                 </thead>
                 <tbody id="table-body">
                     <!-- Data populated via JS -->
-                    <tr><td colspan="5" class="text-center py-8 text-neutral-500"><span class="material-symbols-outlined animate-spin text-2xl">refresh</span></td></tr>
+                    <tr><td colspan="6" class="text-center py-8 text-neutral-500"><span class="material-symbols-outlined animate-spin text-2xl">refresh</span></td></tr>
                 </tbody>
             </table>
         </div>
@@ -178,13 +179,13 @@
             }
         } catch (err) {
             console.error("Gagal menarik data", err);
-            tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-red-400">Gagal menarik data dari server (${err.message})</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-red-400">Gagal menarik data dari server (${err.message})</td></tr>`;
         }
     }
 
     function renderTable(data) {
         if (!data || data.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-12 text-neutral-500 font-bold tracking-widest"><span class="material-symbols-outlined text-4xl block mb-2 opacity-50">inbox</span>BELUM ADA SUBMISSION</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-12 text-neutral-500 font-bold tracking-widest"><span class="material-symbols-outlined text-4xl block mb-2 opacity-50">inbox</span>BELUM ADA SUBMISSION</td></tr>`;
             return;
         }
 
@@ -194,6 +195,7 @@
                 <tr class="border-b border-[#3d4943]/20 hover:bg-[#2a2a2a]/50 transition-colors">
                     <td class="px-6 py-4 text-emerald-500/50 font-bold">${index + 1}</td>
                     <td class="px-6 py-4 font-mono text-xs text-neutral-400">${date}</td>
+                    <td class="px-6 py-4 text-xs font-bold"><span class="bg-surface border border-outline-variant/30 px-2 py-1 rounded text-emerald-400">${item.pertemuan || '-'}</span></td>
                     <td class="px-6 py-4 font-headline tracking-widest text-emerald-300 font-bold">${item.nim}</td>
                     <td class="px-6 py-4 text-neutral-200">${item.nama}</td>
                     <td class="px-6 py-4 text-right">

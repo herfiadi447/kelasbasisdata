@@ -4,8 +4,8 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
-  const { nim, nama, file_url } = req.body;
-  if (!nim || !nama || !file_url) {
+  const { nim, nama, file_url, pertemuan } = req.body;
+  if (!nim || !nama || !file_url || !pertemuan) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -17,8 +17,8 @@ export default async function handler(req, res) {
   try {
     await client.connect();
     const result = await client.query(
-      `INSERT INTO submissions (nim, nama, file_url) VALUES ($1, $2, $3) RETURNING id`,
-      [nim, nama, file_url]
+      `INSERT INTO submissions (nim, nama, file_url, pertemuan) VALUES ($1, $2, $3, $4) RETURNING id`,
+      [nim, nama, file_url, pertemuan]
     );
     res.status(200).json({ success: true, id: result.rows[0].id });
   } catch (error) {

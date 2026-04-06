@@ -409,6 +409,41 @@
 </div>
 </div>
 </section>
+
+<!-- Module 06 Section -->
+<section class="py-24 px-8 md:px-16" id="module-6">
+<div class="max-w-6xl mx-auto">
+<div class="flex items-center gap-4 mb-4">
+<span class="font-headline font-bold text-4xl text-emerald-500">06</span>
+<h2 class="font-headline font-bold text-3xl tracking-widest text-on-surface uppercase">CLOUD_DATABASE <span class="text-neutral-500">(SUPABASE)</span></h2>
+</div>
+<p class="text-neutral-400 font-body max-w-2xl mb-12 italic">Menghubungkan WebGIS dengan Database Cloud secara real-time dan menyimpan data berskala besar dengan aman.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-high p-8 border border-outline-variant/30 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-emerald-500">database</span>
+</div>
+<h3 class="font-headline font-bold text-xl mb-4 text-emerald-400">PostgreSQL Cloud</h3>
+<p class="text-sm text-neutral-300 leading-relaxed mb-6">Pindah dari file sistem lokal (SHP/GeoJSON) ke struktur tabel terpusat yang aman.</p>
+<ul class="space-y-3 mt-auto">
+<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Relational Data (NIM, Nama)</span></li>
+<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Row Level Security (RLS)</span></li>
+</ul>
+</div>
+<div class="bg-surface-container-high p-8 border border-outline-variant/30 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-emerald-500">cloud_upload</span>
+</div>
+<h3 class="font-headline font-bold text-xl mb-4 text-emerald-400">Storage Buckets</h3>
+<p class="text-sm text-neutral-300 leading-relaxed mb-6">Penyimpanan khusus untuk dokumen PDF, Foto Udara, dan Binary Content.</p>
+<ul class="space-y-3 mt-auto">
+<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Public CDN Links & Caching</span></li>
+<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Scalable Architecture</span></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 <!-- Footer -->
 <footer class="w-full py-8 px-12 flex flex-col md:flex-row justify-between items-center bg-neutral-950 border-t border-neutral-800/30">
 <div class="text-emerald-400 font-black font-['Space_Grotesk'] text-[10px] tracking-tighter mb-4 md:mb-0 uppercase">
@@ -521,6 +556,16 @@
             <div>
                 <label class="block text-xs font-label text-neutral-400 mb-1 tracking-widest uppercase">Nama Lengkap</label>
                 <input type="text" id="submit-nama" required class="w-full bg-surface border border-outline-variant/50 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary">
+            </div>
+            <div>
+                <label class="block text-xs font-label text-neutral-400 mb-1 tracking-widest uppercase">Pertemuan</label>
+                <select id="submit-pertemuan" required class="w-full bg-surface border border-outline-variant/50 rounded px-3 py-2 text-on-surface focus:outline-none focus:border-primary appearance-none">
+                    <option value="" disabled selected>Pilih Pertemuan...</option>
+                    <option value="Pertemuan 1">Pertemuan 1</option>
+                    <option value="Pertemuan 2">Pertemuan 2</option>
+                    <option value="Pertemuan 3">Pertemuan 3</option>
+                    <option value="Pertemuan 4">Pertemuan 4</option>
+                </select>
             </div>
             <div>
                 <label class="block text-xs font-label text-neutral-400 mb-1 tracking-widest uppercase">Upload PDF Laporan</label>
@@ -707,10 +752,11 @@
         
         const nim = document.getElementById('submit-nim').value.trim();
         const nama = document.getElementById('submit-nama').value.trim();
+        const pertemuan = document.getElementById('submit-pertemuan').value;
         const fileInput = document.getElementById('submit-file');
         const file = fileInput.files[0];
 
-        if(!nim || !nama || !file) return;
+        if(!nim || !nama || !pertemuan || !file) return;
 
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">cycle</span> UPLOADING...';
@@ -733,7 +779,7 @@
             const resp = await fetch('/api/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nim, nama, file_url: fileUrl })
+                body: JSON.stringify({ nim, nama, file_url: fileUrl, pertemuan })
             });
 
             if (!resp.ok) {

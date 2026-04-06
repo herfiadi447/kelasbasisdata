@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
   try {
     await client.connect();
-    const result = await client.query(`SELECT id, nim, nama, file_url, created_at FROM submissions ORDER BY created_at DESC`);
+    const result = await client.query(`SELECT id, nim, nama, file_url, pertemuan, created_at FROM submissions ORDER BY created_at DESC`);
     res.status(200).json({ success: true, data: result.rows });
   } catch (error) {
     console.error('Fetch Error:', error);
