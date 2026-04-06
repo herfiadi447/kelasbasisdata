@@ -558,6 +558,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Visual Comparison Block -->
+    <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
+            <span class="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 text-xs font-black flex items-center justify-center font-headline shrink-0">📊</span>
+            <div><div class="text-[10px] text-emerald-500 font-bold tracking-widest uppercase">Perbandingan Hasil</div><h3 class="font-headline font-bold text-white">Tampilan Tabel: Geometry vs GeoJSON</h3></div>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-neutral-400 mb-6">Begini perbedaan tampilan tabel di Supabase antara pendekatan <code class="text-emerald-400">to_postgis()</code> (kolom geometry) vs pendekatan GeoJSON Text (kolom jsonb):</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Pendekatan to_postgis() — Tipe Geometry</span>
+                    </div>
+                    <div class="bg-neutral-950 rounded-lg overflow-hidden border border-emerald-500/20">
+                        <img src="img_geom.png" alt="Tabel Supabase dengan kolom geometry (PostGIS)" class="w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity cursor-zoom-in" onclick="this.classList.toggle('scale-150') "/>
+                    </div>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Kolom <code class="text-emerald-400">geometry</code> menyimpan data dalam format binary PostGIS. Bisa langsung dibaca oleh <code>read_postgis()</code> tapi tidak bisa dibaca manusia secara langsung.</p>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 bg-indigo-400 rounded-full"></span>
+                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest">Pendekatan GeoJSON Text — Tipe JSONB</span>
+                    </div>
+                    <div class="bg-neutral-950 rounded-lg overflow-hidden border border-indigo-500/20">
+                        <img src="img_geojson.png" alt="Tabel Supabase dengan kolom geojson (JSONB)" class="w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity cursor-zoom-in" onclick="this.classList.toggle('scale-150')"/>
+                    </div>
+                    <p class="text-xs text-neutral-500 leading-relaxed">Kolom <code class="text-indigo-400">geojson</code> bertipe JSONB menyimpan teks GeoJSON yang bisa dibaca manusia. Satu tabel bisa menampung banyak layer peta sekaligus — inilah target Challenge P3!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
         <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
             <span class="w-7 h-7 rounded-full bg-indigo-500 text-white text-xs font-black flex items-center justify-center font-headline shrink-0">6</span>
