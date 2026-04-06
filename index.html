@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
@@ -452,29 +452,115 @@
 <h2 class="font-headline font-bold text-3xl tracking-widest text-on-surface uppercase">CLOUD_DATABASE <span class="text-neutral-500">(SUPABASE)</span></h2>
 </div>
 <p class="text-neutral-400 font-body max-w-2xl mb-12 italic">Menghubungkan WebGIS dengan Database Cloud secara real-time dan menyimpan data berskala besar dengan aman.</p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="bg-surface-container-high p-8 border border-outline-variant/30 rounded-xl relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-symbols-outlined text-6xl text-emerald-500">database</span>
-</div>
-<h3 class="font-headline font-bold text-xl mb-4 text-emerald-400">PostgreSQL Cloud</h3>
-<p class="text-sm text-neutral-300 leading-relaxed mb-6">Pindah dari file sistem lokal (SHP/GeoJSON) ke struktur tabel terpusat yang aman.</p>
-<ul class="space-y-3 mt-auto">
-<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Relational Data (NIM, Nama)</span></li>
-<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Row Level Security (RLS)</span></li>
-</ul>
-</div>
-<div class="bg-surface-container-high p-8 border border-outline-variant/30 rounded-xl relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-symbols-outlined text-6xl text-emerald-500">cloud_upload</span>
-</div>
-<h3 class="font-headline font-bold text-xl mb-4 text-emerald-400">Storage Buckets</h3>
-<p class="text-sm text-neutral-300 leading-relaxed mb-6">Penyimpanan khusus untuk dokumen PDF, Foto Udara, dan Binary Content.</p>
-<ul class="space-y-3 mt-auto">
-<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Public CDN Links & Caching</span></li>
-<li class="flex items-start gap-3"><span class="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span> <span class="text-xs text-neutral-400 tracking-wide">Scalable Architecture</span></li>
-</ul>
-</div>
+<div class="space-y-6">
+    <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
+            <span class="w-7 h-7 rounded-full bg-emerald-500 text-black text-xs font-black flex items-center justify-center font-headline shrink-0">1</span>
+            <div><div class="text-[10px] text-emerald-500 font-bold tracking-widest uppercase">Terminal / CMD</div><h3 class="font-headline font-bold text-white">Install Library Pendukung</h3></div>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-neutral-400 mb-4">Sebelum mulai, kita butuh 3 pustaka tambahan. Jalankan perintah ini satu kali di Terminal:</p>
+            <div class="bg-neutral-950 border border-outline-variant/30 rounded-lg p-4 font-mono text-sm text-emerald-400">pip install psycopg2-binary sqlalchemy geoalchemy2</div>
+            <ul class="mt-4 space-y-2">
+                <li class="text-xs text-neutral-500 flex items-start gap-2"><span class="text-emerald-600 mt-0.5">&#9658;</span><span><code class="text-neutral-300">psycopg2-binary</code> &mdash; Driver koneksi Python ke PostgreSQL</span></li>
+                <li class="text-xs text-neutral-500 flex items-start gap-2"><span class="text-emerald-600 mt-0.5">&#9658;</span><span><code class="text-neutral-300">sqlalchemy</code> &mdash; ORM pembuatan koneksi dan eksekusi SQL</span></li>
+                <li class="text-xs text-neutral-500 flex items-start gap-2"><span class="text-emerald-600 mt-0.5">&#9658;</span><span><code class="text-neutral-300">geoalchemy2</code> &mdash; Ekstensi SQLAlchemy untuk tipe data PostGIS</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
+            <span class="w-7 h-7 rounded-full bg-emerald-500 text-black text-xs font-black flex items-center justify-center font-headline shrink-0">2</span>
+            <div><div class="text-[10px] text-emerald-500 font-bold tracking-widest uppercase">Konsep Web</div><h3 class="font-headline font-bold text-white">HTTP Methods: GET vs POST</h3></div>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-neutral-400 mb-5">Setiap kali browser berkomunikasi dengan server, dia menggunakan sebuah "kata perintah" bernama <strong class="text-neutral-200">HTTP Method</strong>.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-neutral-900 border border-emerald-500/20 rounded-lg p-4">
+                    <div class="text-xs font-bold text-emerald-400 mb-2 font-headline tracking-wider">GET &mdash; Mengambil Data</div>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Digunakan saat user membuka URL atau mengklik link. Contoh: membuka halaman peta.</p>
+                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-emerald-400">@app.route('/load', methods=['GET'])</div>
+                </div>
+                <div class="bg-neutral-900 border border-indigo-500/20 rounded-lg p-4">
+                    <div class="text-xs font-bold text-indigo-400 mb-2 font-headline tracking-wider">POST &mdash; Mengirim Data</div>
+                    <p class="text-xs text-neutral-500 leading-relaxed mb-3">Digunakan saat user mengirim file atau mengisi form. Data tersembunyi, bukan di URL.</p>
+                    <div class="bg-neutral-950 rounded p-2 font-mono text-[11px] text-indigo-400">@app.route('/upload', methods=['POST'])</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
+            <span class="w-7 h-7 rounded-full bg-emerald-500 text-black text-xs font-black flex items-center justify-center font-headline shrink-0">3</span>
+            <div><div class="text-[10px] text-emerald-500 font-bold tracking-widest uppercase">Flask</div><h3 class="font-headline font-bold text-white">Menerima File Upload di Server</h3></div>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-neutral-400 mb-4">Flask menangkap file yang diunggah melalui objek <code class="text-emerald-400">request.files</code>:</p>
+            <div class="bg-neutral-950 border border-outline-variant/30 rounded-lg p-4 font-mono text-xs leading-relaxed overflow-x-auto">
+                <div class="text-neutral-500 mb-1"># Ambil file dari request</div>
+                <div><span class="text-indigo-400">file</span> = request.files['file_shp']</div>
+                <div class="mt-2"><span class="text-indigo-400">filename</span> = secure_filename(file.filename)</div>
+                <div><span class="text-indigo-400">filepath</span> = os.path.join(UPLOAD_FOLDER, filename)</div>
+                <div>file.save(<span class="text-indigo-400">filepath</span>)</div>
+                <div class="mt-2 text-neutral-500"># GeoPandas langsung baca file .zip SHP</div>
+                <div><span class="text-indigo-400">gdf</span> = gpd.read_file(f"zip://{filepath}")</div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
+            <span class="w-7 h-7 rounded-full bg-emerald-500 text-black text-xs font-black flex items-center justify-center font-headline shrink-0">4</span>
+            <div><div class="text-[10px] text-emerald-500 font-bold tracking-widest uppercase">SQLAlchemy</div><h3 class="font-headline font-bold text-white">Koneksi ke Database Supabase</h3></div>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-neutral-400 mb-4">SQLAlchemy butuh sebuah <strong class="text-neutral-200">Connection String</strong> untuk mengenali server tujuan. Formatnya:</p>
+            <div class="bg-neutral-950 border border-outline-variant/30 rounded-lg p-3 font-mono text-xs text-yellow-400 break-all mb-4">postgresql://[user]:[password]@[host]:[port]/[database]</div>
+            <div class="bg-neutral-950 border border-outline-variant/30 rounded-lg p-4 font-mono text-xs leading-relaxed">
+                <div class="text-neutral-500 mb-1"># Simpan URL di variabel (jangan dishare!)</div>
+                <div><span class="text-indigo-400">DATABASE_URL</span> = "postgresql://postgres.xxx:pass@..."</div>
+                <div class="mt-2"><span class="text-indigo-400">engine</span> = create_engine(<span class="text-indigo-400">DATABASE_URL</span>)</div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
+            <span class="w-7 h-7 rounded-full bg-emerald-500 text-black text-xs font-black flex items-center justify-center font-headline shrink-0">5</span>
+            <div><div class="text-[10px] text-emerald-500 font-bold tracking-widest uppercase">GeoPandas to Supabase</div><h3 class="font-headline font-bold text-white">Kirim Peta ke Cloud: to_postgis()</h3></div>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-neutral-400 mb-4">Satu baris ini membuat tabel baru di Supabase <strong class="text-neutral-200">secara otomatis</strong> beserta seluruh kolom atribut dan geometrinya:</p>
+            <div class="bg-neutral-950 border border-emerald-500/20 rounded-lg p-4 font-mono text-xs leading-relaxed">
+                <div>gdf.to_postgis(</div>
+                <div class="ml-4">name=<span class="text-emerald-400">"tabel_praktikum"</span>,  <span class="text-neutral-500"># Nama tabel di Supabase</span></div>
+                <div class="ml-4">con=engine,               <span class="text-neutral-500"># Koneksi yang dibuat tadi</span></div>
+                <div class="ml-4">if_exists=<span class="text-emerald-400">"replace"</span>,     <span class="text-neutral-500"># 'replace' / 'append' / 'fail'</span></div>
+                <div class="ml-4">index=<span class="text-indigo-400">False</span></div>
+                <div>)</div>
+            </div>
+            <div class="mt-4 bg-emerald-950/30 border border-emerald-500/20 rounded-lg p-3 text-xs text-emerald-300 flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-400 text-sm mt-0.5">lightbulb</span>
+                <span>Ganti ke <code>if_exists="append"</code> untuk menambahkan baris baru tanpa menghapus data lama.</span>
+            </div>
+        </div>
+    </div>
+    <div class="bg-surface-container-high border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="flex items-center gap-4 px-6 py-4 border-b border-outline-variant/20 bg-neutral-900/50">
+            <span class="w-7 h-7 rounded-full bg-indigo-500 text-white text-xs font-black flex items-center justify-center font-headline shrink-0">6</span>
+            <div><div class="text-[10px] text-indigo-400 font-bold tracking-widest uppercase">Supabase to Browser</div><h3 class="font-headline font-bold text-white">Tarik Peta dari Cloud: read_postgis()</h3></div>
+        </div>
+        <div class="p-6">
+            <p class="text-sm text-neutral-400 mb-4">Kebalikannya. Menarik data dari Supabase dan mengembalikannya sebagai GeoDataFrame siap render Folium:</p>
+            <div class="bg-neutral-950 border border-indigo-500/20 rounded-lg p-4 font-mono text-xs leading-relaxed">
+                <div class="text-neutral-500 mb-1"># Query SQL standar</div>
+                <div><span class="text-indigo-400">sql</span> = "SELECT * FROM tabel_praktikum;"</div>
+                <div class="mt-2"><span class="text-indigo-400">gdf</span> = gpd.read_postgis(</div>
+                <div class="ml-4"><span class="text-indigo-400">sql</span>, con=engine, geom_col=<span class="text-emerald-400">"geometry"</span></div>
+                <div>)</div>
+                <div class="mt-2 text-neutral-500"># Render ke Folium seperti biasa</div>
+                <div>folium.GeoJson(<span class="text-indigo-400">gdf</span>).add_to(m)</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- TUGAS PRAKTIKUM MINGGUAN (Formatted like Mission Task) -->
