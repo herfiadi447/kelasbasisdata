@@ -601,9 +601,12 @@
                     </div>
                     <div class="bg-neutral-950 rounded border border-outline-variant/30 px-3 py-2 mt-4">
                         <div class="text-[9px] text-emerald-500 font-bold uppercase mb-1">SQL Schema</div>
-                        <pre class="text-[10px] text-neutral-400 font-mono leading-tight">CREATE TABLE data_spasial (
+                        <pre class="text-[10px] text-neutral-400 font-mono leading-tight">-- Aktifkan PostGIS (Hanya sekali)
+CREATE EXTENSION IF NOT EXISTS postgis;
+
+CREATE TABLE data_spasial (
   id SERIAL PRIMARY KEY,
-  geom GEOMETRY(Geometry, 4326)
+  geom GEOMETRY(Geometry, 4326) -- Binary format
 );</pre>
                     </div>
                     <p class="text-xs text-neutral-500 leading-relaxed">Kolom <code class="text-emerald-400">geometry</code> menyimpan data dalam format binary PostGIS. Bisa langsung dibaca oleh <code>read_postgis()</code> tapi tidak bisa dibaca manusia secara langsung.</p>
@@ -618,9 +621,11 @@
                     </div>
                     <div class="bg-neutral-950 rounded border border-outline-variant/30 px-3 py-2 mt-4">
                         <div class="text-[9px] text-indigo-400 font-bold uppercase mb-1">SQL Schema</div>
-                        <pre class="text-[10px] text-neutral-400 font-mono leading-tight">CREATE TABLE koleksi_peta (
+                        <pre class="text-[10px] text-neutral-400 font-mono leading-tight">-- Pendekatan Challenge P3
+CREATE TABLE koleksi_peta (
   id SERIAL PRIMARY KEY,
-  geojson JSONB
+  nama_layer TEXT,
+  geojson JSONB -- Format teks GeoJSON
 );</pre>
                     </div>
                     <p class="text-xs text-neutral-500 leading-relaxed">Kolom <code class="text-indigo-400">geojson</code> bertipe JSONB menyimpan teks GeoJSON yang bisa dibaca manusia. Satu tabel bisa menampung banyak layer peta sekaligus — inilah target Challenge P3!</p>
