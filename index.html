@@ -443,21 +443,52 @@
 </div>
 </div>
 
-<!-- TUGAS PRAKTIKUM MINGGUAN -->
-<div class="mt-16 bg-surface p-8 md:p-12 border border-emerald-500/30 rounded-2xl relative overflow-hidden shadow-2xl">
-<div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-bl-full pointer-events-none"></div>
-<span class="inline-block px-3 py-1 bg-emerald-500 text-on-primary text-[10px] font-bold tracking-[0.2em] uppercase rounded mb-4 shadow-[0_0_15px_rgba(16,185,129,0.5)]">Mission Challenge</span>
-<h3 class="font-headline font-bold text-2xl md:text-3xl mb-4 text-emerald-400 uppercase tracking-wide">Pendekatan GeoJSON Text <span class="text-neutral-500 text-lg tracking-normal capitalize font-normal">(Level Lanjut)</span></h3>
-<p class="text-neutral-300 font-body mb-8 leading-relaxed max-w-3xl">
-Alih-alih bergantung pada fitur sihir otomatis <code>GeoPandas</code> untuk membuat tabel, <strong>bisakah kalian mengonversi peta (Shapefile) menjadi teks String murni berformat GeoJSON</strong> lalu menyimpannya ke dalam satu tabel tunggal bernama <code class="bg-surface-bright text-emerald-300 px-2 py-0.5 rounded font-bold border border-emerald-500/20">koleksi_peta</code>?
-</p>
-<div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/30">
-<h4 class="text-[10px] font-bold text-neutral-500 uppercase tracking-[0.2em] mb-4">Target Pencapaian Instalasi:</h4>
+<!-- TUGAS PRAKTIKUM MINGGUAN (Formatted like Mission Task) -->
+<div class="mt-16 p-1 border border-primary/20 bg-primary/5 rounded-lg">
+<div class="border border-primary p-8 md:p-12 rounded-sm bg-neutral-950 glow-emerald">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+<div>
+<h2 class="text-xs font-label uppercase tracking-[0.5em] text-emerald-500 mb-3">06 // MISSION_TASK</h2>
+<h3 class="text-4xl font-headline font-black text-on-surface">CHALLENGE: GeoJSON Text Store</h3>
+</div>
+<div class="bg-surface-container px-6 py-4 border border-outline-variant rounded text-center min-w-[140px] cursor-pointer hover:border-emerald-500/50 transition-colors group" onclick="openTimerModal()">
+<div class="mission-timer-display text-3xl font-headline font-bold text-emerald-400 group-hover:text-emerald-300 transition-colors">60:00</div>
+<div class="text-[10px] font-label text-neutral-500 tracking-tighter uppercase">Time Remaining</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
 <ul class="space-y-4">
-<li class="flex items-start gap-4"><span class="text-emerald-500 material-symbols-outlined text-xl mt-0.5 shadow-sm">keyboard_double_arrow_right</span> <span class="text-sm text-neutral-300 leading-relaxed font-body">Buat tabel <span class="text-emerald-300 font-bold border-b border-emerald-500/30 line-dashed pb-0.5">koleksi_peta</span> secara manual di Dashboard Supabase dengan tipe kolom <code>JSONB</code> atau <code>TEXT</code>.</span></li>
-<li class="flex items-start gap-4"><span class="text-emerald-500 material-symbols-outlined text-xl mt-0.5 shadow-sm">keyboard_double_arrow_right</span> <span class="text-sm text-neutral-300 leading-relaxed font-body">Konversikan objek Python GeoDataFrame menjadi format standar Web API menggunakan metode <code class="bg-surface px-1.5 py-0.5 rounded text-xs font-mono text-emerald-400 border border-outline-variant/50">gdf.to_json()</code>.</span></li>
-<li class="flex items-start gap-4"><span class="text-emerald-500 material-symbols-outlined text-xl mt-0.5 shadow-sm">keyboard_double_arrow_right</span> <span class="text-sm text-neutral-300 leading-relaxed font-body">Tembak dan injeksikan teks GeoJSON raksasa tersebut ke dalam baris tabel database menggunakan perintah SQL INSERT murni (SQLAlchemy).</span></li>
+<li class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-emerald-500 mt-1">check_circle</span>
+<span class="text-neutral-300">Buat tabel <span class="text-emerald-400 font-bold">koleksi_peta</span> manual di Supabase dengan tipe data <code>JSONB</code> atau <code>TEXT</code>.</span>
+</li>
+<li class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-emerald-500 mt-1">check_circle</span>
+<span class="text-neutral-300">Konversi GeoDataFrame ke format teks standar menggunakan <code>gdf.to_json()</code>.</span>
+</li>
+<li class="flex gap-4 items-start">
+<span class="material-symbols-outlined text-emerald-500 mt-1">check_circle</span>
+<span class="text-neutral-300">Simpan string GeoJSON ke kolom database dengan perintah SQL INSERT murni secara terprogram (SQLAlchemy).</span>
+</li>
 </ul>
+<div class="bg-surface-container-high p-6 rounded-md border border-outline-variant/30">
+<div class="flex items-center gap-2 mb-4 text-emerald-400">
+<span class="material-symbols-outlined">help_center</span>
+<span class="font-headline font-bold text-sm uppercase">Bantuan?</span>
+</div>
+<p class="text-sm text-neutral-400 leading-relaxed italic">
+Untuk mengeksekusi script SQL mentah di SQLAlchemy, Anda dapat menggunakan fungsi <code class="text-emerald-500">connection.execute(text("INSERT INTO ..."))</code>. Jangan lupa panggil <code>connection.commit()</code> secara spesifik!
+</p>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+    <a class="w-full text-center py-4 bg-surface-container-high text-emerald-400 font-headline font-black tracking-[0.3em] uppercase hover:bg-surface-bright border border-emerald-500/50 transition-colors flex justify-center items-center gap-3" download="" href="pertemuan3.zip">
+        DOWNLOAD PERTEMUAN3.ZIP <span class="material-symbols-outlined">cloud_download</span>
+    </a>
+    <button onclick="openSubmitModal()" class="w-full py-4 bg-emerald-500 text-on-primary font-headline font-black tracking-[0.3em] uppercase hover:bg-emerald-400 transition-colors">
+        SUBMIT_MISSION_RESULT
+    </button>
+</div>
 </div>
 </div>
 </div>
