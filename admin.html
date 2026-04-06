@@ -77,6 +77,21 @@
         </div>
     </div>
 
+    <!-- Filter Bar -->
+    <div class="bg-[#181818] px-8 py-4 border-b border-[#3d4943]/20 flex justify-end items-center shrink-0">
+        <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-neutral-500 text-sm">filter_list</span>
+            <label for="filter-pertemuan" class="text-xs font-bold text-neutral-400 tracking-widest uppercase">FILTER:</label>
+            <select id="filter-pertemuan" onchange="applyFilter()" class="bg-[#131313] border border-[#3d4943]/50 rounded px-4 py-1.5 text-sm font-bold text-emerald-400 focus:outline-none focus:border-emerald-500 appearance-none min-w-[200px] hover:border-emerald-500/50 transition-colors cursor-pointer outline-none">
+                <option value="ALL">Semua Pertemuan</option>
+                <option value="Pertemuan 1">Pertemuan 1</option>
+                <option value="Pertemuan 2">Pertemuan 2</option>
+                <option value="Pertemuan 3">Pertemuan 3</option>
+                <option value="Pertemuan 4">Pertemuan 4</option>
+            </select>
+        </div>
+    </div>
+
     <!-- Table -->
     <div class="flex-1 overflow-auto p-4 md:p-8 bg-[#181818]">
         <div class="w-full bg-[#131313] rounded-lg border border-[#3d4943]/30 overflow-hidden shadow-xl">
@@ -106,6 +121,18 @@
     const tableBody = document.getElementById('table-body');
     const loginError = document.getElementById('login-error');
     const loginBtn = document.getElementById('login-btn');
+
+    let allSubmissions = [];
+
+    function applyFilter() {
+        const filterVal = document.getElementById('filter-pertemuan').value;
+        if (filterVal === 'ALL') {
+            renderTable(allSubmissions);
+        } else {
+            const filteredData = allSubmissions.filter(item => item.pertemuan === filterVal);
+            renderTable(filteredData);
+        }
+    }
 
     // Auto check login
     if (localStorage.getItem('admin_token')) {
@@ -173,7 +200,8 @@
 
             const data = await resp.json();
             if (resp.ok && data.success) {
-                renderTable(data.data);
+                allSubmissions = data.data;
+                applyFilter();
             } else {
                  throw new Error(data.error);
             }
